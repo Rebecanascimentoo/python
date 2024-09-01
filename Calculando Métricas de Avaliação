@@ -1,0 +1,41 @@
+n = int(input())
+matrices = []
+
+for _ in range(n):
+    matrix = input()
+    matrices.append(list(map(int, matrix.split(','))))
+
+# Função para calcular acurácia e precisão
+def calculate_accuracy_and_precision(matrix):
+    VP, FP, FN, VN = matrix
+    total = VP + FP + FN + VN
+    accuracy = (VP + VN) / total if total != 0 else 0 # Impede a divisão por zero
+    precision = VP / (VP + FP) if (VP + FP) != 0 else 0 #Impede a divisao por zero
+    return accuracy, precision
+
+# TODO: Create a function to find the matrix index with the best combined accuracy and precision
+def best_performance(matrices):
+    best_index = 0
+    best_accuracy = 0
+    best_precision = 0
+    # TODO: Define Loop through each matrix to calculate metrics
+    for index, matrix in enumerate(matrices):
+        accuracy, precision = calculate_accuracy_and_precision(matrix)
+        
+        # TODO: Define tp, fp fn and tn
+        if accuracy > best_accuracy or (accuracy == best_accuracy and precision > best_precision):
+            best_accuracy = accuracy
+            best_precision = precision
+            best_index = index
+            
+    return best_index, round(best_accuracy,2), round(best_precision,2) 
+    
+        # TODO: Calculate accuracy and precision
+
+        # TODO: Update best metrics if found
+best_index, best_accuracy, best_precision = best_performance(matrices)
+
+# Print the results
+print(f"Índice: {best_index +1}")
+print(f"Acurácia: {best_accuracy}")
+print(f"Precisão: {best_precision}")
